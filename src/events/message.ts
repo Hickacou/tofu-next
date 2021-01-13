@@ -35,7 +35,7 @@ export default class extends Event {
 			return;
 		const args: string[] = content.split(' ').filter(arg => arg.length > 0);
 		const name: string = args.shift()!.toLowerCase();
-
+		content = content.slice(name.length);
 		let command: Command;
 		if (this.client.commands.has(name))
 			command = this.client.commands.get(name)!;
