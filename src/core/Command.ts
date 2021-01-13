@@ -68,7 +68,7 @@ export default abstract class Command implements CommandInfo {
 
 	/* TODO - Find a way to implement this as a decorator. If done, rename by check */
 	/**
-	 * Runs permissions checks before running a command. Can be omitted if the command has no restriction.
+	 * Runs permissions, cooldown checks and database save. 
 	 * @param message The message triggering the command
 	 */
 	protected async preRun(message: Message): Promise<boolean> {
