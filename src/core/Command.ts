@@ -134,7 +134,7 @@ export default abstract class Command implements CommandInfo {
 	 * The behavior of a command 
 	 * @param message The message triggering the command
 	 * @param args The parsed arguments
-	 * @param content The message content without the prefix or bot mention
+	 * @param content The message content without prefix and command name
 	 */
 	public abstract run(message: Message, args: string[], content: string): void;
 }
