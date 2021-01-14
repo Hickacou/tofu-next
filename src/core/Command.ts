@@ -73,6 +73,10 @@ export default abstract class Command implements CommandInfo {
 	 */
 	protected async preRun(message: Message): Promise<boolean> {
 		const save: CommandSavedInfo = await this.save;
+		if (!this.dm && message.channel.type === 'dm') {
+			message.channel.send('This command can\'t be run in DMs. Please use it in a server.');
+			return false;
+		}
 		if (!this.client.isAdmin(message.author)) {
 			if (this.admin)
 				return false;
