@@ -18,7 +18,7 @@ class ExtendedKeyv<TValue = any> extends Keyv<TValue> {
 
 	/** Returns the value. */
 	public async get(key: string): Promise<TValue> {
-		const value: TValue = (await super.get(key))!;
+		const value: TValue | undefined = await super.get(key);
 		if (typeof value === 'undefined')
 			return this.default;
 		const missing: string[] = Object.keys(this.default).filter(k => !Object.keys(value).includes(k));
