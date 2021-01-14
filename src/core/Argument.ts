@@ -38,7 +38,7 @@ export default class Argument implements ArgumentInfo {
 	public of?: any[];
 	public required: boolean;
 	public type: ArgumentType;
-	public validator?: (input: string, guild: Guild) => boolean;
+	public validator?: (input: string, guild?: Guild) => boolean;
 	private client: BotClient;
 
 	/**
@@ -81,13 +81,15 @@ export default class Argument implements ArgumentInfo {
 	 * @param input The value to test
 	 * @param guild The guild to fetch data from
 	*/
-	private async defaultValidator(input: string, guild: Guild): Promise<boolean> {
+	private async defaultValidator(input: string, guild?: Guild): Promise<boolean> {
 		if (this.required && input.trim() === '')
 			return false;
 
 		if (this.of)
 			return (this.case) ? this.of.includes(input) : this.of.includes(input.toLowerCase());
 
+		if (['category','channel','textchannel','voicechannel','member','role'].includes(this.type) && !guild)
+			return false;
 		switch (this.type) {
 			case 'boolean':
 				return ['on', 'off', 'true', 'false', '0', '1', 'yes', 'no'].includes(input.toLowerCase());
@@ -128,7 +130,7 @@ export default class Argument implements ArgumentInfo {
 					return false;
 				if (this.type === 'member') {
 					try {
-						await guild.members.fetch(snowflake);
+						await guild?.members.fetch(snowflake);
 					} catch (err) {
 						return false;
 					}
@@ -157,7 +159,7 @@ export default class Argument implements ArgumentInfo {
 	 * @param input The value to test
 	 * @param guild The guild to fetch data from
 	 */
-	public async isValid(input: string, guild: Guild): Promise<boolean> {
+	public async isValid(input: string, guild?: Guild): Promise<boolean> {
 		return (this.validator) ? this.validator(input, guild) : this.defaultValidator(input, guild);
 	}
 
@@ -166,7 +168,7 @@ export default class Argument implements ArgumentInfo {
 	 * @param input The input to fetch the value from
 	 * @param guild The guild to fetch data from
 	 */
-	public async get(input: string, guild: Guild): Promise<any> {
+	public async get(input: string, guild?: Guild): Promise<any> {
 		const valid: boolean = await this.isValid(input, guild);
 		if (!valid)
 			return null;
@@ -179,7 +181,7 @@ export default class Argument implements ArgumentInfo {
 			case 'textchannel':
 			case 'voicechannel': {
 				const snowflake: Snowflake = Argument.CHANNEL_MENTION.exec(input)![1];
-				return guild.channels.resolve(snowflake);
+				return guild?.channels.resolve(snowflake);
 			}
 			case 'duration':
 				return parseDuration(input);
@@ -190,12 +192,12 @@ export default class Argument implements ArgumentInfo {
 			case 'user':
 			case 'member': {
 				const snowflake: Snowflake = Argument.USER_MENTION.exec(input)![1];
-				const member: GuildMember = await guild.members.fetch(snowflake);
+				const member: GuildMember = (await guild?.members.fetch(snowflake))!;
 				return (this.type === 'member') ? member : member.user;
 			}
 			case 'role': {
 				const snowflake: Snowflake = Argument.ROLE_MENTION.exec(input)![1];
-				return guild.roles.fetch(snowflake);
+				return guild?.roles.fetch(snowflake);
 			}
 			case 'boolean': {
 				const val: string = input.toLowerCase();

@@ -39,6 +39,6 @@ interface ArgumentInfo {
 	 * @param input The value to test
 	 * @param guild The guild to fetch data from
 	*/
-	validator?: (input: string, guild: Guild) => boolean,
+	validator?: (input: string, guild?: Guild) => boolean,
 }
 export default ArgumentInfo;
