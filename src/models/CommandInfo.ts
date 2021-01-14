@@ -15,7 +15,7 @@ interface CommandInfo {
 	cooldown?: number,
 	/** The description of the command */
 	description: string,
-	/** Whether the command can be ran in DMs */
+	/** Whether the command can be run in DMs */
 	dm?: boolean;
 	/** The example uses for the command */
 	examples?: CommandExample[],
