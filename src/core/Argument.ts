@@ -82,13 +82,15 @@ export default class Argument implements ArgumentInfo {
 	 * @param guild The guild to fetch data from
 	*/
 	private async defaultValidator(input: string, guild?: Guild): Promise<boolean> {
+		if (!input)
+			return false;
 		if (this.required && input.trim() === '')
 			return false;
 
 		if (this.of)
 			return (this.case) ? this.of.includes(input) : this.of.includes(input.toLowerCase());
 
-		if (['category','channel','textchannel','voicechannel','member','role'].includes(this.type) && !guild)
+		if (['category', 'channel', 'textchannel', 'voicechannel', 'member', 'role'].includes(this.type) && !guild)
 			return false;
 		switch (this.type) {
 			case 'boolean':
