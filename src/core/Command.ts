@@ -12,22 +12,22 @@ import { formatDuration } from './Time';
 /** A bot command */
 export default abstract class Command implements CommandInfo {
 	public admin: boolean;
-	public aliases?: string[];
-	public arguments?: Argument[];
+	public aliases: string[];
+	public arguments: Argument[];
 	public client: BotClient;
 	public cooldown: number;
 	/** Whether this command is globally disabled. */
 	public disabled: boolean;
 	public description: string;
 	public dm: boolean;
-	public examples?: CommandExample[];
+	public examples: CommandExample[];
 	public hidden: boolean;
 	/** The logger used to log command related messsages */
 	public log: Logger;
 	public module: string;
-	public myPerms?: PermissionString[];
+	public myPerms: PermissionString[];
 	public readonly name: string;
-	public perms?: PermissionString[];
+	public perms: PermissionString[];
 	public silent: boolean;
 	/** A collection containing the commands's subcommands */
 	public sub?: Collection<string, Command>;
@@ -39,17 +39,17 @@ export default abstract class Command implements CommandInfo {
 	constructor(client: BotClient, options: CommandInfo) {
 		this.client = client;
 		this.admin = options.admin || false;
-		this.aliases = options.aliases;
-		this.arguments = options.arguments;
+		this.aliases = options.aliases || [];
+		this.arguments = options.arguments || [];
 		this.cooldown = (options.cooldown && options.cooldown > 0) ? options.cooldown : 0;
 		this.description = options.description;
 		this.disabled = false;
 		this.dm = options.dm || false;
-		this.examples = options.examples;
+		this.examples = options.examples || [];
 		this.hidden = this.admin || options.hidden || false;
 		this.module = options.module;
-		this.myPerms = options.myPerms;
-		this.perms = options.perms;
+		this.myPerms = options.myPerms || [];
+		this.perms = options.perms || [];
 		this.silent = options.silent || false;
 		this.name = options.name.toLowerCase();
 		if (client.commands.findKey(cmd => cmd.name === this.name))
