@@ -5,7 +5,7 @@
 **The bot is still in really early development phase, more informations will be added as the project takes shape.**
 
 ### Contact me
-Find me on Discord: `Hicka🍡#3151` or through [Tofu's Discord Server](https://discord.gg/tpHkjZaP7e).
+Find me on Discord: `Hicka#3151` or through [Tofu's Discord Server](https://discord.gg/tpHkjZaP7e).
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)
