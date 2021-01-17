@@ -32,7 +32,7 @@ class ExtendedKeyv<TValue = any> extends Keyv<TValue> {
 	 * Merges an object in a saved object. Will throw an error if the stored data is not an object.
 	 * @param data The properties to update 
 	 */
-	public async merge(key: string, data: Record<keyof TValue, unknown>): Promise<true> {
+	public async merge(key: string, data: { [key: string]: unknown }): Promise<true> {
 		const value: TValue = await this.get(key);
 		const merged: TValue = { ...value, ...data };
 		return this.set(key, merged);
