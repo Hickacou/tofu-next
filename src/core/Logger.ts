@@ -22,8 +22,6 @@ export type LoggingType = 'INFO' | 'WARN' | 'ERROR';
 
 /** A tool to log messages related to specific scopes */
 export default class Logger {
-	/** All the loggers names */
-	private static names: string[] = [];
 	/** Path to the logs directory */
 	private static LOGS_PATH: string = join(__dirname, '../..', 'logs');
 	/** The name of the logger */
@@ -39,10 +37,7 @@ export default class Logger {
 	 * @param store Whether to store logs from this logger in log files
 	 */
 	constructor(name: string, pattern: LoggerPattern = '[{DATE} {TIME}][{TYPE}][{NAME}] {MESSAGE}', store = true) {
-		if (Logger.names.includes(name))
-			throw new Error(`The name ${name} is already taken by another logger.`);
 		this.name = name;
-		Logger.names.push(name);
 		this.pattern = pattern;
 		this.store = store;
 	}
