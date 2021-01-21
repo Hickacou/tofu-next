@@ -130,7 +130,7 @@ export default abstract class Command implements CommandInfo {
 			userInfo.uses[this.name] = 1;
 		userInfo.uses._TOTAL_++;
 		await this.client.db.users.set(message.author.id, userInfo);
-		this.log.info(`${this.log.obj(message.author)} used the command. • Command uses: ${save.uses._TOTAL_} | User uses: ${userInfo.uses._TOTAL_} / ${userInfo.uses._TOTAL_}`);
+		this.log.info(`${this.log.obj(message.author)} used the command. • Command uses: ${save.uses._TOTAL_} | User uses: ${save.uses[message.author.id]} / ${userInfo.uses._TOTAL_}`);
 		return true;
 	}
 
