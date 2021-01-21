@@ -54,7 +54,11 @@ export default class DatabaseManager {
 			uses: { '_TOTAL_': 0 },
 		}, params('commands', uri));
 		this.guilds = new ExtendedKeyv({
-			banned: false
+			banned: false,
+			autorole: {
+				enabled: false,
+				warned: false
+			}
 		}, params('users', uri));
 		this.users = new ExtendedKeyv({
 			balance: 0,
