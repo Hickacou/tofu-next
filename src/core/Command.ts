@@ -7,6 +7,7 @@ import Argument from './Argument';
 import BotClient from './BotClient';
 import Logger from './Logger';
 import { ErrorResponse } from './Response';
+import Subcommand from './Subcommand';
 import { formatDuration } from './Time';
 
 /** A bot command */
@@ -30,7 +31,7 @@ export default abstract class Command implements CommandInfo {
 	public perms: PermissionString[];
 	public silent: boolean;
 	/** A collection containing the commands's subcommands */
-	public sub?: Collection<string, Command>;
+	public sub?: Collection<string, Subcommand>;
 
 	/** 
 	 * @param client The client the command belongs to
@@ -57,7 +58,9 @@ export default abstract class Command implements CommandInfo {
 		this.log = new Logger(`Command-${this.name}`);
 		if (options.subcommands) {
 			this.sub = new Collection();
-			options.subcommands.forEach(cmd => this.sub?.set(cmd.name, cmd));
+			options.subcommands.forEach((cmd: Subcommand) =>
+				cmd.identifiers.forEach(id => this.sub?.set(id, cmd))
+			);
 		}
 	}
 
@@ -70,8 +73,9 @@ export default abstract class Command implements CommandInfo {
 	/**
 	 * Runs permissions, cooldown checks and database save. 
 	 * @param message The message triggering the command
+	 * @param args The arguments given by the user. Useful for subcommand automatic run
 	 */
-	protected async preRun(message: Message): Promise<boolean> {
+	protected async preRun(message: Message, args?: string[]): Promise<boolean> {
 		const save: CommandSavedInfo = await this.save;
 		if (!this.dm && message.channel.type === 'dm') {
 			message.channel.send('This command can\'t be run in DMs. Please use it in a server.');
@@ -131,6 +135,16 @@ export default abstract class Command implements CommandInfo {
 		userInfo.uses._TOTAL_++;
 		await this.client.db.users.set(message.author.id, userInfo);
 		this.log.info(`${this.log.obj(message.author)} used the command. • Command uses: ${save.uses._TOTAL_} | User uses: ${save.uses[message.author.id]} / ${userInfo.uses._TOTAL_}`);
+
+		if (args && args.length > 0 && this.sub) {
+			const id: string = args.shift()!;
+			const sub: Subcommand | undefined = this.sub.get(id);
+			if (sub) {
+				await sub.run(this, message, args, id);
+				return false;
+			}
+		}
+
 		return true;
 	}
 

@@ -1,6 +1,6 @@
 import { PermissionString } from 'discord.js';
 import Argument from '../core/Argument';
-import Command from '../core/Command';
+import Subcommand from '../core/Subcommand';
 import CommandExample from './CommandExample';
 
 /** The informations for a command */
@@ -32,6 +32,6 @@ interface CommandInfo {
 	/** Whether the command is silent or not. If true, no error message will be sent if a user doesn't have the authorization to use a command. Always true if `hidden` is true */
 	silent?: boolean,
 	/** The subcommands of the command */
-	subcommands?: Command[];
+	subcommands?: Subcommand[];
 }
 export default CommandInfo;
