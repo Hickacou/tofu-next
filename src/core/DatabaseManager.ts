@@ -58,6 +58,11 @@ export default class DatabaseManager {
 			autorole: {
 				enabled: false,
 				warned: false
+			},
+			welcome: {
+				enabled: false,
+				type: 'message',
+				value: 'Welcome to {USER_MENTION} in **{SERVER_NAME}**!',
 			}
 		}, params('users', uri));
 		this.users = new ExtendedKeyv({
