@@ -40,7 +40,7 @@ export default class extends Command {
 			}
 			else
 				embed.addField('Result', `\`\`\`\n${response}\`\`\``);
-			message.channel.send(embed);
+			await message.channel.send(embed);
 		} catch (err) {
 			message.channel.send(new ErrorResponse('The expression threw an error', err));
 		}
