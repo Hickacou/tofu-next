@@ -19,7 +19,7 @@ import { parseDuration } from './Time';
  *  - `user` A Discord user
  *  - `voicechannel` A voice channel
  */
-export type ArgumentType = 'boolean' | 'category' | 'channel' | 'custom' | 'duration' | 'emoji' | 'member' | 'number' | 'role' | 'string' | 'textchannel' | 'user' | 'voicechannel';
+export type ArgumentType = 'boolean' | 'category' | 'channel' | 'custom' | 'duration' | 'emoji' | 'json' | 'member' | 'number' | 'role' | 'string' | 'textchannel' | 'user' | 'voicechannel';
 
 /** Represents a command Argument */
 export default class Argument implements ArgumentInfo {
@@ -122,6 +122,13 @@ export default class Argument implements ArgumentInfo {
 			}
 			case 'emoji':
 				return /^\p{Emoji_Presentation}$/u.test(input) || Argument.EMOJI_MENTION.test(input);
+			case 'json':
+				try {
+					JSON.parse(input);
+					return true;
+				} catch (_err) {
+					return false;
+				}
 			case 'member':
 			case 'user': {
 				if (!Argument.USER_MENTION.test(input))
@@ -189,6 +196,8 @@ export default class Argument implements ArgumentInfo {
 				return parseDuration(input);
 			case 'emoji':
 				return input;
+			case 'json':
+				return JSON.parse(input);
 			case 'number':
 				return parseFloat(input);
 			case 'user':
