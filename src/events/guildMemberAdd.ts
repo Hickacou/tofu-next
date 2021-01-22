@@ -9,7 +9,6 @@ export default class extends Event {
 	}
 
 	public async execute(member: GuildMember): Promise<void> {
-		console.log('join');
 		const guild: Guild = member.guild;
 		const save: GuildSavedInfo = await this.client.db.guilds.get(guild.id);
 		/* Guild Autorole */
