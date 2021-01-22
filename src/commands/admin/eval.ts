@@ -24,7 +24,7 @@ export default class extends Command {
 		});
 	}
 
-	public async run(message: Message, args: string[], content: string): Promise<void> {
+	public async run(message: Message, _args: string[], content: string): Promise<void> {
 		if (!(await this.preRun(message)))
 			return;
 		const expression: string = content;
