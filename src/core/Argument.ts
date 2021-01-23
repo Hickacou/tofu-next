@@ -55,10 +55,8 @@ export default class Argument implements ArgumentInfo {
 		this.case = options.case || false;
 		this.invalidMessage = options.invalidMessage || `Wrong value provided for argument ${this.key}`;
 		this.validator = options.validator;
-		if (options.customTypeName) {
-			this.type = 'custom';
+		if (options.customTypeName)
 			this.customTypeName = options.customTypeName;
-		}
 		switch (this.type) {
 			case 'duration':
 			case 'number':
