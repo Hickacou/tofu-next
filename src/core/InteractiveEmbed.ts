@@ -37,7 +37,9 @@ export default class InteractiveEmbed extends EventEmitter {
 			if (this.emojis.includes(reaction.emoji.name))
 				this.emit(reaction.emoji.name, reaction, user);
 		});
-		this.collector.on('end', () => {
+		this.collector.on('end', (_collected, reason) => {
+			if (reason === 'HANDLED')
+				return;
 			message.reactions.removeAll();
 			if (this.killed) {
 				const data = { ...this.embed.toJSON(), ...this.killed };
@@ -95,7 +97,9 @@ export class PaginatedEmbed extends EventEmitter {
 				index = (index + 1 > max) ? 0 : index + 1;
 			await message.edit(this.embeds[index]);
 		});
-		this.collector.on('end', () => {
+		this.collector.on('end', (_collected, reason) => {
+			if (reason === 'HANDLED')
+				return;
 			message.reactions.removeAll();
 			if (this.killed) {
 				const data = { ...this.embeds[index].toJSON(), ...this.killed };
