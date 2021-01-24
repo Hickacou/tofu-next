@@ -8,9 +8,9 @@ export default class InteractiveEmbed extends EventEmitter {
 	/** The embed */
 	public embed: MessageEmbed;
 	/** The emojis to interact */
-	private emojis: string[];
+	protected emojis: string[];
 	/** The embed data to change when the interactibility stops */
-	private killed?: MessageEmbedOptions;
+	protected killed?: MessageEmbedOptions;
 	/**
 	 * @param emojis The emojis to interact
 	 * @param embed The embed
@@ -102,6 +102,36 @@ export class PaginatedEmbed extends EventEmitter {
 				message.edit(new MessageEmbed(data));
 			}
 		});
+		return this;
+	}
+}
+
+/** A menu in the form of an embed */
+export class MenuEmbed extends InteractiveEmbed {
+	public static emojis: string[] = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
+
+	/**
+	 * 
+	 * @param choices The different choices 
+	 * @param embed The embed to send. The formatted choices are added after the description
+	 * @param killed The embed data to change when the interactibility stops
+	 */
+	constructor(choices: string[], embed: MessageEmbed | MessageEmbedOptions, killed?: MessageEmbedOptions) {
+		if (choices.length > 10)
+			throw new Error('A MenuEmbed can\'t have more than 10 choices.');
+		super(MenuEmbed.emojis.slice(0, choices.length), embed, killed);
+		choices.forEach((value, index) => {
+			this.embed.description += `\n${MenuEmbed.emojis[index]} ${value}`;
+		});
+	}
+
+	/**
+	 * Sends a MenuEmbed
+	 * @param channel The channel where the embed is sent
+	 * @param user The user able to interact with the embed
+	 */
+	public async send(channel: TextChannel | NewsChannel | DMChannel, user: User): Promise<MenuEmbed> {
+		await super.send(channel, user);
 		return this;
 	}
 }
