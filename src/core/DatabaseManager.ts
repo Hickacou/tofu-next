@@ -64,7 +64,7 @@ export default class DatabaseManager {
 				type: 'message',
 				value: 'Welcome to {USER_MENTION} in **{SERVER_NAME}**!',
 			}
-		}, params('users', uri));
+		}, params('guilds', uri));
 		this.users = new ExtendedKeyv({
 			balance: 0,
 			banned: false,
