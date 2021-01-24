@@ -1,4 +1,5 @@
-import { Guild, GuildMember, Role } from 'discord.js';
+import { Guild, GuildChannel, GuildMember, MessageEmbed, MessageEmbedOptions, Role, TextChannel } from 'discord.js';
+import { replaceVariables } from '../commands/guild/welcome';
 import BotClient from '../core/BotClient';
 import Event from '../core/Event';
 import GuildSavedInfo from '../models/db/GuildSavedInfo';
@@ -28,6 +29,20 @@ export default class extends Event {
 				save.autorole.warned = false;
 				await this.client.db.guilds.set(guild.id, save);
 			}
+		}
+		/* Welcome Message */
+		if (save.welcome.enabled) {
+			const channel: TextChannel = member.guild.channels.resolve(save.welcome.channel!) as TextChannel;
+			if (!channel)
+				return;
+			let sent: MessageEmbed | string;
+			if (save.welcome.type === 'embed')
+				sent = new MessageEmbed(replaceVariables(save.welcome.value as Record<string, unknown>, member) as MessageEmbedOptions);
+			else
+				sent = replaceVariables(save.welcome.value as string, member) as string;
+			try {
+				channel.send(sent);
+			} catch (err) { /* pass */ }
 		}
 	}
 }
