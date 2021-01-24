@@ -1,4 +1,4 @@
-import { Guild, GuildChannel, GuildMember, MessageEmbed, MessageEmbedOptions, Role, TextChannel } from 'discord.js';
+import { Guild, GuildMember, MessageEmbed, MessageEmbedOptions, Role, TextChannel } from 'discord.js';
 import { replaceVariables } from '../commands/guild/welcome';
 import BotClient from '../core/BotClient';
 import Event from '../core/Event';
