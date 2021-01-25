@@ -5,6 +5,7 @@ import MemberNotificationInfo from '../MemberNotificationInfo';
 
 interface GuildSavedInfo {
 	banned: boolean,
+	bye: MemberNotificationInfo,
 	prefix?: string,
 	autorole: GuildAutoRoleInfo,
 	welcome: MemberNotificationInfo,

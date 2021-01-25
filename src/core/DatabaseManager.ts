@@ -63,6 +63,11 @@ export default class DatabaseManager {
 				enabled: false,
 				type: 'message',
 				value: 'Welcome to {USER_MENTION} in **{SERVER_NAME}**!',
+			},
+			bye: {
+				enabled: false,
+				type: 'message',
+				value: '{USER_NAME} has left **{SERVER_NAME}**.',
 			}
 		}, params('guilds', uri));
 		this.users = new ExtendedKeyv({
