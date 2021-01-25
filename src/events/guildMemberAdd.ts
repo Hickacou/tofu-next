@@ -1,5 +1,5 @@
 import { Guild, GuildMember, MessageEmbed, MessageEmbedOptions, Role, TextChannel } from 'discord.js';
-import { replaceVariables } from '../commands/guild/welcome';
+import { replaceVariables } from '../commands/guild/memberNotification';
 import BotClient from '../core/BotClient';
 import Event from '../core/Event';
 import GuildSavedInfo from '../models/db/GuildSavedInfo';
