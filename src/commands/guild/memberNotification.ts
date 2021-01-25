@@ -139,7 +139,7 @@ export function channelSubcommand(client: BotClient, type: 'welcome' | 'bye'): S
 			response += `\n⚠**${cap} message is currently disabled.** If you want to enable it now, react with ✳. Else, just ignore this message.`;
 		const resMsg: Message = await message.channel.send(response);
 		/* Activation shortcut */
-		if (!save.welcome.enabled) {
+		if (!save[type].enabled) {
 			await resMsg.react('✳');
 			const collector: ReactionCollector = resMsg.createReactionCollector((r, u) => u.id === message.author.id && r.emoji.name === '✳', { time: 15000 });
 			collector.on('collect', async () => {
