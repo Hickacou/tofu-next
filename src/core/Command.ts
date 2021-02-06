@@ -98,7 +98,7 @@ export default abstract class Command implements CommandInfo {
 					const last: number = save.lastUse[message.author.id];
 					if (Date.now() - last < this.cooldown) {
 						if (!this.silent)
-							message.channel.send(`⏱ **You must wait ${formatDuration(Date.now() - last)} before using the command again!**`);
+							message.channel.send(`⏱ **You must wait ${formatDuration(this.cooldown - Date.now() + last)} before using the command again!**`);
 						return false;
 					}
 				}
