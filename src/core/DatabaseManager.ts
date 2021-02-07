@@ -72,6 +72,7 @@ export default class DatabaseManager {
 		}, params('guilds', uri));
 		this.users = new ExtendedKeyv({
 			balance: 0,
+			dailyStreak: 0,
 			banned: false,
 			uses: { '_TOTAL_': 0 },
 			reputation: 0,

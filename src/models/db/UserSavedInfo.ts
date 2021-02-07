@@ -3,6 +3,7 @@
 interface UserSavedInfo {
 	balance: number,
 	banned: boolean,
+	dailyStreak: number,
 	uses: { [key: string]: number },
 	reputation: number,
 }
