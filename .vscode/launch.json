@@ -20,20 +20,25 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Debug",
-			"runtimeExecutable": "ts-node",
+			"runtimeExecutable": "npx",
+			"args": [
+				"ts-node",
+				"app.ts"
+			],
 			"cwd": "${workspaceFolder}/src",
-			"program": "app.ts"
 		},
 		{
 			"type": "node",
 			"request": "launch",
 			"name": "Debug current file",
-			"runtimeExecutable": "ts-node",
-			"cwd": "${workspaceFolder}",
+			"runtimeExecutable": "npx",
+			"args": [
+				"ts-node",
+				"${file}"
+			],
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${file}"
 		}
 	]
 }  
