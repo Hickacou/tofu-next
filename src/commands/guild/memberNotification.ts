@@ -173,7 +173,7 @@ export function messageSubcommand(client: BotClient, type: 'welcome' | 'bye'): S
 			const variablesList = `${Object.keys(messageVariables).map(k => `\`${k}\` - ${messageVariables[k]}`).join('\n')}`;
 			const embed: MessageEmbed = new MessageEmbed()
 				.setTitle(`Server ${cap} Message Configuration`)
-				.setDescription(`⌨ Please enter the ${cap} Message.\n\n__Available variables:__\n${variablesList}\nIf you struggle using embeds, you can generate your json [here](https://tofubot.xyz/embed-generator).`)
+				.setDescription(`⌨ Please enter the ${cap} Message.\n\n__Available variables:__\n${variablesList}`)
 				.setFooter('Type \'exit\' to close this menu.');
 			const msg = await message.channel.send(embed);
 			const response: Collection<string, Message> = await msg.channel.awaitMessages(m => m.author.id === message.author.id, { time: 60000, max: 1 });
@@ -224,9 +224,9 @@ export function messageSubcommand(client: BotClient, type: 'welcome' | 'bye'): S
 					return void message.channel.send('❌ Menu closed due to inactivity.');
 				const res: string = response.first()!.content.toLowerCase();
 				if (res === 'no')
-					return void message.channel.send('**Sure, the operation has been cancelled.**\n> For further help you can read:\n> **Discord.js Guide - Embeds**: https://discordjs.guide/popular-topics/embeds.html\n> **Tofu\'s embed generator**: https://tofubot.xyz/embed-generator');
+					return void message.channel.send('**Sure, the operation has been cancelled.**\n> For further help you can read:\n> **Discord.js Guide - Embeds**: https://discordjs.guide/popular-topics/embeds.html');
 				else if (res !== 'yes')
-					return void message.channel.send('**I\'ll consider this was a no, the operation has been cancelled.**\n> For further help you can read:\n> **Discord.js Guide - Embeds**: https://discordjs.guide/popular-topics/embeds.html\n> **Tofu\'s embed generator**: https://tofubot.xyz/embed-generator');
+					return void message.channel.send('**I\'ll consider this was a no, the operation has been cancelled.**\n> For further help you can read:\n> **Discord.js Guide - Embeds**: https://discordjs.guide/popular-topics/embeds.html');
 			}
 		}
 		try {

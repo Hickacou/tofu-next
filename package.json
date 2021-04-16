@@ -1,7 +1,7 @@
 {
-  "name": "tofu",
+  "name": "fluor",
   "version": "0.1.0",
-  "description": "Just a bot, but everything.",
+  "description": "Fun Discord Bot",
   "main": "build/app.js",
   "scripts": {
     "compile": "run-script-os",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hickacou/Tofu.git"
+    "url": "git+https://github.com/hickatheworld/Fluor.git"
   },
   "author": "Hicka",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Hickacou/Tofu/issues"
+    "url": "https://github.com/hickatheworld/Fluor/issues"
   },
-  "homepage": "https://github.com/Hickacou/Tofu#readme",
+  "homepage": "https://github.com/hickatheworld/Fluor#readme",
   "devDependencies": {
     "@types/keyv": "^3.1.1",
     "@types/ws": "^7.4.0",
@@ -35,7 +35,7 @@
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "keyv": "^4.0.3",
-    "pm2": "^4.5.1",
+    "pm2": "^4.5.6",
     "tsc": "^1.20150623.0"
   }
 }

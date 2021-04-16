@@ -40,7 +40,7 @@ export default class BotClient extends Client {
 		this.admins = [];
 		this.aliases = new Collection();
 		this.commands = new Collection();
-		this.log = new Logger('Tofu');
+		this.log = new Logger('Fluor');
 		this.modules = new Collection();
 		this.prefix = options.prefix;
 		this.test = options.test || false;
